@@ -44,15 +44,6 @@
                             scope-object="parentInstance">
                     </assessment-mapped-related-information>
                 </div>
-                <div class="assessment-comments flex-size-1">
-                    <div class="section-title">Response Comments</div>
-                    {{^if_in instance.status 'Completed,Final'}}
-                      {{#is_allowed 'update' instance context='for'}}
-                          <assessment-add-comment class="assessment-comments-add" instance="instance"></assessment-add-comment>
-                      {{/is_allowed}}
-                    {{/if_in}}
-                    {{> '/static/mustache/base_templates/comment_list.mustache' }}
-                </div>
             </div>
             <div class="tabs-wrap">
                 <tabs instance="instance">
@@ -121,6 +112,14 @@
                               </div>
                           </div>
                       </collapsible-panel>
+                    </tab-panel>
+                    <tab-panel panels="panels" title-text="Comments" instance="instance">
+                      {{^if_in instance.status 'Completed,Final'}}
+                        {{#is_allowed 'update' instance context='for'}}
+                            <assessment-add-comment class="width-70 flex-box flex-col" instance="instance"></assessment-add-comment>
+                        {{/is_allowed}}
+                      {{/if_in}}
+                      {{> '/static/mustache/base_templates/comment_list.mustache' }}
                     </tab-panel>
                     <tab-panel panels="panels" title-text="Assessment Log" instance="instance">
                         <revision-log instance="instance"></revision-log>
